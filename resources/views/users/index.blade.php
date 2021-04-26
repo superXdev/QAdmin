@@ -1,5 +1,5 @@
 <x-app-layout>
-	<x-slot name="title">Users</x-slot>
+	<x-slot name="title">Member</x-slot>
 
 	@if(session()->has('success'))
 	<x-alert type="success" message="{{ session()->get('success') }}" />

@@ -37,6 +37,5 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
-Route::view('/tes', 'member.dashboard');
 
 require __DIR__.'/auth.php';
