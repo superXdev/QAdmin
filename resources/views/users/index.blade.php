@@ -31,7 +31,10 @@
 				      @endif
 					</td>
 					<td class="text-center">
-						<button type="button" class="btn btn-info mr-1"><i class="fas fa-eye"></i></button>
+						<button type="button" class="btn btn-info mr-1 info"
+						data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-roles="{{ $user->getRoleNames() }}" data-created="{{ $user->created_at->format('d-M-Y H:m:s') }}">
+							<i class="fas fa-eye"></i>
+						</button>
 						<a href="{{ route('member.edit', $user->id) }}" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></a> 
 						<form action="{{ route('member.delete', $user->id) }}" style="display: inline-block;" method="POST">
 							@csrf
@@ -48,8 +51,49 @@
 		</table>
 	</x-card>
 
+	<x-modal>
+		<x-slot name="id">infoModal</x-slot>
+		<x-slot name="title">Information</x-slot>
+
+		<div class="row mb-2">
+			<div class="col-6">
+				<b>Name</b>
+			</div>
+			<div class="col-6" id="name-modal"></div>
+		</div>
+		<div class="row mb-2">
+			<div class="col-6">
+				<b>Email</b>
+			</div>
+			<div class="col-6" id="email-modal"></div>
+		</div>
+		<div class="row mb-2">
+			<div class="col-6">
+				<b>Roles</b>
+			</div>
+			<div class="col-6" id="roles-modal"></div>
+		</div>
+		<div class="row mb-2">
+			<div class="col-6">
+				<b>Created</b>
+			</div>
+			<div class="col-6" id="created-modal"></div>
+		</div>
+	</x-modal>
+
 	<x-slot name="script">
 		<script>
+			$('.info').click(function(e) {
+				e.preventDefault()
+
+				$('#name-modal').text($(this).data('name'))
+				$('#email-modal').text($(this).data('email'))
+				$('#roles-modal').text($(this).data('roles'))
+				$('#created-modal').text($(this).data('created'))
+
+				$('#infoModal').modal('show')
+			})
+
 			$('.delete').click(function(e){
 				e.preventDefault()
 				const ok = confirm('Ingin menghapus user?')
