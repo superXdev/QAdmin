@@ -22,13 +22,13 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::paginate(5);
-        return view('roles.index',compact('roles'));
+        return view('admin.roles.index',compact('roles'));
     }
     
     public function create()
     {
         $permission = Permission::get();
-        return view('roles.create',compact('permission'));
+        return view('admin.roles.create',compact('permission'));
     }
     
     public function store(Request $request)
@@ -54,7 +54,7 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
     
-        return view('roles.edit',compact('role','permission','rolePermissions'));
+        return view('admin.roles.edit',compact('role','permission','rolePermissions'));
     }
     
     public function update(Request $request, $id)

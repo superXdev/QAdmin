@@ -25,7 +25,7 @@ class User extends Authenticatable
         'avatar'
     ];
 
-    protected static $logAttributes = ['name', 'email', 'avatar'];
+    protected static $logAttributes = ['name', 'email'];
 
     protected static $igonoreChangedAttributes = ['updated_at'];
 
@@ -33,7 +33,7 @@ class User extends Authenticatable
 
     protected static $logOnlyDirty = true;
 
-    // protected static $logName = 'user';
+    protected static $logName = 'user';
 
     /**
      * The attributes that should be hidden for arrays.

@@ -10,14 +10,18 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $logs = Activity::latest()->limit(5)->get();
+        $logs = Activity::where('causer_id', auth()->id())->limit(5);
 
-        if(!auth()->user()->is_admin) {
-            $logs = Activity::where('causer_id', auth()->id())->limit(5);
-        } 
-
-        return view('dashboard', compact('logs'));
+        return view('admin.dashboard', compact('logs'));
     }
+
+    public function activity_logs()
+    {
+        $logs = Activity::where('causer_id', auth()->id())->paginate(10);
+
+        return view('admin.logs', compact('logs'));
+    }
+
 	/**
 	* Store settings into database
 	*

@@ -23,13 +23,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::latest()->paginate(10);
-        return view('users.index',compact('users'));
+        return view('admin.users.index',compact('users'));
     }
     
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        return view('admin.users.create',compact('roles'));
     }
     
     public function store(Request $request)
@@ -57,7 +57,7 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
     
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('admin.users.edit',compact('user','roles','userRole'));
     }
     
     public function update(Request $request, $id)

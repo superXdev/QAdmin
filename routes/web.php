@@ -10,13 +10,15 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function(){
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+	Route::get('/logs', [DashboardController::class, 'activity_logs'])->name('logs');
 	
 	// Settings menu
-	Route::view('/settings', 'settings')->name('settings');
+	Route::view('/settings', 'admin.settings')->name('settings');
 	Route::post('/settings', [DashboardController::class, 'setting_store'])->name('settings');
 	
 	// Profile menu
-	Route::view('/profile', 'profile')->name('profile');
+	Route::view('/profile', 'admin.profile')->name('profile');
 	Route::post('/profile', [DashboardController::class, 'profile_update'])->name('profile');
 	Route::post('/profile/upload', [DashboardController::class, 'upload_avatar'])
 		->name('profile.upload');
