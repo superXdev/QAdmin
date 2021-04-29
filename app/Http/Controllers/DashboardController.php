@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
+    public function index()
+    {
+        $logs = Activity::latest()->limit(5)->get();
+
+        if(!auth()->user()->is_admin) {
+            $logs = Activity::where('causer_id', auth()->id())->limit(5);
+        } 
+
+        return view('dashboard', compact('logs'));
+    }
 	/**
 	* Store settings into database
 	*
@@ -38,7 +49,7 @@ class DashboardController extends Controller
     */
     public function profile_update(Request $request)
     {
-        $data = [];
+        $data = ['name' => $request->name];
 
         // if password want to change
         if($request->old_password && $request->new_password) {
@@ -47,16 +58,17 @@ class DashboardController extends Controller
                 session()->flash('failed', 'Password is wrong!');
                 return redirect()->back();
             }
-            // update both
-            $data = [
-                'name' => $request->name,
-                'password' => Hash::make($request->new_password)
-            ];
-        } else {
-            // just name
-            $data = [
-                'name' => $request->name
-            ];
+
+            $data['password'] = Hash::make($request->new_password);
+        } 
+
+        // for update avatar
+        if($request->avatar) {
+            $data['avatar'] = $request->avatar;
+
+            if(auth()->user()->avatar) {
+                unlink(storage_path('app/public/'.auth()->user()->avatar));
+            }
         }
         
         // update profile
@@ -65,5 +77,22 @@ class DashboardController extends Controller
 
         session()->flash('success', 'Profile updated!');
         return redirect()->back();
+    }
+
+    public function upload_avatar(Request $request)
+    {
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+
+            $fileName = $file->getClientOriginalName();
+            $folder = 'user-'.auth()->id();
+
+            $file->storeAs('avatars/'.$folder, $fileName, 'public');
+
+            return 'avatars/'.$folder.'/'.$fileName;
+        }
+
+        return '';
+        
     }
 }

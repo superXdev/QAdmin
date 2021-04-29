@@ -11,6 +11,7 @@
         <link href="{{ asset('dist/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('dist/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('dist/css/ruang-admin.min.css') }}" rel="stylesheet">
+        {{ ($head) ?? '' }}
     </head>
 
     <body id="page-top">
@@ -64,6 +65,7 @@
         <script src="{{ asset('dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('dist/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('dist/js/ruang-admin.min.js') }}"></script>
+        <script src="{{ asset('dist/vendor/chart.js/Chart.min.js') }}"></script>
         {{ ($script) ?? '' }}
     </body>
 </html>

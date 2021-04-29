@@ -9,7 +9,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function(){
-	Route::view('/dashboard', 'dashboard')->name('dashboard');
+	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 	
 	// Settings menu
 	Route::view('/settings', 'settings')->name('settings');
@@ -18,6 +18,8 @@ Route::group(['middleware' => 'auth'], function(){
 	// Profile menu
 	Route::view('/profile', 'profile')->name('profile');
 	Route::post('/profile', [DashboardController::class, 'profile_update'])->name('profile');
+	Route::post('/profile/upload', [DashboardController::class, 'upload_avatar'])
+		->name('profile.upload');
 
 	// Member menu
 	Route::get('/member', [UserController::class, 'index'])->name('member');
@@ -37,5 +39,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+Route::get('/tes', function(){
+	return view('test');
+});
 
 require __DIR__.'/auth.php';

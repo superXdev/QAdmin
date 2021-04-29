@@ -16,26 +16,32 @@
     
     <hr class="sidebar-divider mb-0">
 
+    @can('member-list')
     <x-nav-link 
         text="Member" 
         icon="users" 
         url="{{ route('member') }}"
         active="{{ request()->routeIs('member') ? ' active' : '' }}"
     />
+    @endcan
 
+    @can('role-list')
     <x-nav-link 
         text="Roles" 
         icon="th-list" 
         url="{{ route('roles') }}"
         active="{{ request()->routeIs('roles') ? ' active' : '' }}"
     />
+    @endcan
 
     <hr class="sidebar-divider mb-0">
     
+    @can('setting-list')
     <x-nav-link 
         text="Settings" 
         icon="cogs" 
         url="{{ route('settings') }}"
         active="{{ request()->routeIs('settings') ? ' active' : '' }}"
     />
+    @endcan
 </ul>
