@@ -4,7 +4,7 @@
 			<div class="col-md-6">
 				<x-alert-error/>
 				<x-card>
-					<form action="{{ route('roles.create') }}" method="post">
+					<form action="{{ route('admin.roles.create') }}" method="post">
 						@csrf
 
 						<x-input type="text" text="Name" name="name" />

@@ -38,7 +38,7 @@
                     Log Activity
                 </x-slot>
                 <x-slot name="option">
-                    <a href="#" class="btn btn-primary btn-sm">More</a>
+                    <a href="{{ route('admin.logs') }}" class="btn btn-primary btn-sm">More</a>
                 </x-slot>
                 <table class="table">
                     <tbody>

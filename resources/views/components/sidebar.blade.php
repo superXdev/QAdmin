@@ -10,8 +10,8 @@
     <x-nav-link 
         text="Dashboard" 
         icon="tachometer-alt" 
-        url="{{ route('dashboard') }}"
-        active="{{ request()->routeIs('dashboard') ? ' active' : '' }}"
+        url="{{ route('admin.dashboard') }}"
+        active="{{ request()->routeIs('admin.dashboard') ? ' active' : '' }}"
     />
     
     <hr class="sidebar-divider mb-0">
@@ -20,8 +20,8 @@
     <x-nav-link 
         text="Member" 
         icon="users" 
-        url="{{ route('member') }}"
-        active="{{ request()->routeIs('member') ? ' active' : '' }}"
+        url="{{ route('admin.member') }}"
+        active="{{ request()->routeIs('admin.member') ? ' active' : '' }}"
     />
     @endcan
 
@@ -29,8 +29,8 @@
     <x-nav-link 
         text="Roles" 
         icon="th-list" 
-        url="{{ route('roles') }}"
-        active="{{ request()->routeIs('roles') ? ' active' : '' }}"
+        url="{{ route('admin.roles') }}"
+        active="{{ request()->routeIs('admin.roles') ? ' active' : '' }}"
     />
     @endcan
 
@@ -40,8 +40,8 @@
     <x-nav-link 
         text="Settings" 
         icon="cogs" 
-        url="{{ route('settings') }}"
-        active="{{ request()->routeIs('settings') ? ' active' : '' }}"
+        url="{{ route('admin.settings') }}"
+        active="{{ request()->routeIs('admin.settings') ? ' active' : '' }}"
     />
     @endcan
 </ul>

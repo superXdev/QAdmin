@@ -5,7 +5,7 @@
 	<x-alert-error/>
 	
 	<x-card>
-		<form action="{{ route('member.update', $user->id) }}" method="post">
+		<form action="{{ route('admin.member.update', $user->id) }}" method="post">
 			@csrf
 
 			<div class="row">

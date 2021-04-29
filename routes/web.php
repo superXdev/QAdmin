@@ -8,7 +8,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group([
+	'middleware' => 'auth',
+	'prefix' => 'admin',
+	'as' => 'admin.'
+], function(){
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 	Route::get('/logs', [DashboardController::class, 'activity_logs'])->name('logs');

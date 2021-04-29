@@ -7,7 +7,7 @@
 	<x-card>
 		<x-slot name="title">All Member</x-slot>
 		<x-slot name="option">
-			<a href="{{ route('member.create') }}" class="btn btn-success">
+			<a href="{{ route('admin.member.create') }}" class="btn btn-success">
 				<i class="fas fa-plus"></i>
 			</a>
 		</x-slot>
@@ -35,8 +35,8 @@
 						data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-roles="{{ $user->getRoleNames() }}" data-created="{{ $user->created_at->format('d-M-Y H:m:s') }}">
 							<i class="fas fa-eye"></i>
 						</button>
-						<a href="{{ route('member.edit', $user->id) }}" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></a> 
-						<form action="{{ route('member.delete', $user->id) }}" style="display: inline-block;" method="POST">
+						<a href="{{ route('admin.member.edit', $user->id) }}" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></a> 
+						<form action="{{ route('admin.member.delete', $user->id) }}" style="display: inline-block;" method="POST">
 							@csrf
 							<button type="button" class="btn btn-danger delete"><i class="fas fa-trash"></i></button>
 						</form>

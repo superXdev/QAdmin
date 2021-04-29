@@ -3,7 +3,7 @@
 		Settings
 	</x-slot>
 
-	<form action=" {{ route('settings') }}" method="POST" enctype="multipart/form-data">
+	<form action=" {{ route('admin.settings') }}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<div class="row">
 			<!-- general settings -->

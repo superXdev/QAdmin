@@ -8,7 +8,7 @@
 	<x-alert type="success" message="{{ session()->get('success') }}" />
 	@endif
 	<x-card>
-		<form action="{{ route('member.create') }}" method="post">
+		<form action="{{ route('admin.member.create') }}" method="post">
 			@csrf
 
 			<div class="row">

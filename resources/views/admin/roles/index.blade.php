@@ -5,9 +5,9 @@
 	<x-alert type="success" message="{{ session()->get('success') }}" />
 	@endif
 	<x-card>
-		<x-slot name="title">All Member</x-slot>
+		<x-slot name="title">All Roles</x-slot>
 		<x-slot name="option">
-			<a href="{{ route('roles.create') }}" class="btn btn-success">
+			<a href="{{ route('admin.roles.create') }}" class="btn btn-success">
 				<i class="fas fa-plus"></i>
 			</a>
 		</x-slot>
@@ -23,8 +23,8 @@
 					<td>{{ $role->id }}</td>
 					<td>{{ $role->name }}</td>
 					<td class="text-center">
-						<a href="{{ route('roles.edit', $role->id) }}" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></a> 
-						<form action="{{ route('roles.delete', $role->id) }}" style="display: inline-block;" method="POST">
+						<a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></a> 
+						<form action="{{ route('admin.roles.delete', $role->id) }}" style="display: inline-block;" method="POST">
 							@csrf
 							<button type="button" class="btn btn-danger delete"><i class="fas fa-trash"></i></button>
 						</form>

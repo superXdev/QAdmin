@@ -49,7 +49,7 @@
 
         FilePond.setOptions({
             server: {
-                url: '{{ route('profile.upload') }}',
+                url: '{{ route('admin.profile.upload') }}',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
