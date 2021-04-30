@@ -1,13 +1,9 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+    <x-slot name="title">Reset Password</x-slot>
+    <x-card>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-alert-error/>
 
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
@@ -16,33 +12,17 @@
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
             <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-            </div>
+            <x-input type="email" name="email" text="Email" value="old('email', $request->email)"/>
 
             <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-            </div>
+            <x-input type="password" name="password" text="Password"/>
 
             <!-- Confirm Password -->
+            <x-input type="password" name="password_confirmation" text="Confirm Password"/>
+
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
+                <x-button for="submit" text="Reset Password" type="primary" />
             </div>
         </form>
-    </x-auth-card>
+    </x-card>
 </x-guest-layout>
