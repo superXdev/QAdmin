@@ -39,6 +39,7 @@ You can fork or clone this project
 ```bash 
 git clone git@github.com:superXdev/QAdmin.git
 cd QAdmin
+composer install
 cp .env.example .env <-- edit db config
 php artisan admin:install
 ```
