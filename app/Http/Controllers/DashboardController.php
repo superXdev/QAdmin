@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Models\Activity;
 use App\Http\Requests\SettingRequest;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -16,7 +17,7 @@ class DashboardController extends Controller
     */
     public function index()
     {
-        $logs = Activity::where('causer_id', auth()->id())->limit(5);
+        $logs = Activity::where('causer_id', auth()->id())->latest()->paginate(5);
 
         return view('admin.dashboard', compact('logs'));
     }
@@ -28,7 +29,7 @@ class DashboardController extends Controller
     */
     public function activity_logs()
     {
-        $logs = Activity::where('causer_id', auth()->id())->paginate(10);
+        $logs = Activity::where('causer_id', auth()->id())->latest()->paginate(10);
 
         return view('admin.logs', compact('logs'));
     }
@@ -117,5 +118,12 @@ class DashboardController extends Controller
 
         return '';
         
+    }
+
+    public function delete_logs()
+    {
+        $logs = Activity::where('created_at', '<=', Carbon::now()->subWeeks())->delete();
+
+        return back()->with('success', $logs.' Logs successfully deleted!');
     }
 }

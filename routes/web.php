@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{DashboardController, UserController, RoleController};
 
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -16,6 +15,7 @@ Route::group([
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 	Route::get('/logs', [DashboardController::class, 'activity_logs'])->name('logs');
+	Route::post('/logs/delete', [DashboardController::class, 'delete_logs'])->name('logs.delete');
 	
 	// Settings menu
 	Route::view('/settings', 'admin.settings')->name('settings');
@@ -45,8 +45,5 @@ Route::group([
 
 });
 
-Route::get('/tes', function(){
-	return view('test');
-});
 
 require __DIR__.'/auth.php';

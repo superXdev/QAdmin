@@ -57,6 +57,14 @@ class RoleController extends Controller
     
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
+
+        // logging
+        $role = new Role();
+        activity()
+            ->withProperties(['name' => $request->name])
+            ->causedBy(auth()->user())
+            ->performedOn($role)
+           ->log('You have created roles');
     
         return redirect()->route('admin.roles')
                         ->with('success','Role created successfully');
@@ -76,6 +84,7 @@ class RoleController extends Controller
         	->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
+
     
         return view('admin.roles.edit',compact('role','permission','rolePermissions'));
     }
@@ -99,6 +108,15 @@ class RoleController extends Controller
     
         $role->syncPermissions($request->input('permission'));
     
+
+        // logging
+        $roles = new Role();
+        activity()
+            ->withProperties(['name' => $role->name])
+            ->causedBy(auth()->user())
+            ->performedOn($roles)
+           ->log('You have edited roles');
+
         return redirect()->route('admin.roles')
                         ->with('success','Role updated successfully');
     }
@@ -111,7 +129,19 @@ class RoleController extends Controller
     */
     public function destroy($id)
     {
-        DB::table("roles")->where('id',$id)->delete();
+        $role = Role::find($id);
+        $role_name = $role->name;
+
+        $role->delete();
+
+        // logging
+        $role = new Role();
+        activity()
+            ->withProperties(['name' => $role_name])
+            ->causedBy(auth()->user())
+            ->performedOn($role)
+           ->log('You have deleted roles');
+
         return redirect()->route('admin.roles')
                         ->with('success','Role deleted successfully');
     }
