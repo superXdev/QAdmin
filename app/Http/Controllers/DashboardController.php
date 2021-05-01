@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Models\Activity;
+use App\Http\Requests\SettingRequest;
 
 class DashboardController extends Controller
 {
+    /**
+    * Show dashboard
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         $logs = Activity::where('causer_id', auth()->id())->limit(5);
@@ -15,6 +21,11 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('logs'));
     }
 
+    /**
+    * Show activity logs
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function activity_logs()
     {
         $logs = Activity::where('causer_id', auth()->id())->paginate(10);
@@ -26,8 +37,9 @@ class DashboardController extends Controller
 	* Store settings into database
 	*
 	* @param $request
+    * @return \Illuminate\Http\Response
 	*/
-    public function settings_store(Request $request)
+    public function settings_store(SettingRequest $request)
     {
     	// when you upload a logo image
     	if($request->file('logo')) {
@@ -43,13 +55,14 @@ class DashboardController extends Controller
 
     	// save all
     	setting()->save();
-    	return redirect()->back();
+    	return redirect()->back()->with('success', 'Settings has been successfully saved');
     }
 
     /**
     * Update profile user
     *
     * @param $request
+    * @return \Illuminate\Http\Response
     */
     public function profile_update(Request $request)
     {
@@ -78,13 +91,19 @@ class DashboardController extends Controller
         // update profile
         auth()->user()->update($data);
         
-
-        session()->flash('success', 'Profile updated!');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Profile updated!');
     }
 
+    /**
+    * Store avatar images into database
+    *
+    * @param $request
+    * @return string
+    */
     public function upload_avatar(Request $request)
     {
+        $request->validate(['avatar'  => 'file|image|mimes:jpg,png,svg|max:1024']);
+
         if($request->hasFile('avatar')){
             $file = $request->file('avatar');
 

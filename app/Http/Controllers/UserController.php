@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
     
 use Illuminate\Http\Request;
+use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
@@ -32,15 +33,8 @@ class UserController extends Controller
         return view('admin.users.create',compact('roles'));
     }
     
-    public function store(Request $request)
+    public function store(MemberRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
-        ]);
-    
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
     
@@ -64,7 +58,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email',
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
@@ -82,14 +76,14 @@ class UserController extends Controller
     
         $user->assignRole($request->input('roles'));
     
-        return redirect()->route('member')
+        return redirect()->route('admin.member')
                         ->with('success','User updated successfully');
     }
     
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('member')
+        return redirect()->route('admin.member')
                         ->with('success','User deleted successfully');
     }
 }

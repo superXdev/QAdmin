@@ -19,20 +19,37 @@ class RoleController extends Controller
          $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
     
+    /**
+    * Show all roles
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index(Request $request)
     {
         $roles = Role::paginate(5);
         return view('admin.roles.index',compact('roles'));
     }
     
+    /**
+    * Create a new roles
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function create()
     {
         $permission = Permission::get();
         return view('admin.roles.create',compact('permission'));
     }
     
+    /**
+    * Store new roles into database
+    *
+    * @param $request
+    * @return \Illuminate\Http\Response
+    */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
@@ -41,10 +58,16 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
     
-        return redirect()->route('roles')
+        return redirect()->route('admin.roles')
                         ->with('success','Role created successfully');
     }
     
+    /**
+    * Edit a roles
+    *
+    * @param $id
+    * @return \Illuminate\Http\Response
+    */
     public function edit($id)
     {
         $role = Role::find($id);
@@ -57,6 +80,12 @@ class RoleController extends Controller
         return view('admin.roles.edit',compact('role','permission','rolePermissions'));
     }
     
+    /**
+    * Update roles
+    *
+    * @param $request, $id
+    * @return \Illuminate\Http\Response
+    */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -70,14 +99,20 @@ class RoleController extends Controller
     
         $role->syncPermissions($request->input('permission'));
     
-        return redirect()->route('roles')
+        return redirect()->route('admin.roles')
                         ->with('success','Role updated successfully');
     }
     
+    /**
+    * Show all roles
+    *
+    * @param $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles')
+        return redirect()->route('admin.roles')
                         ->with('success','Role deleted successfully');
     }
 }

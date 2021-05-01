@@ -3,6 +3,12 @@
 		Settings
 	</x-slot>
 
+	<x-alert-error></x-alert-error>
+
+	@if(session()->has('success'))
+	<x-alert type="success" message="{{ session()->get('success') }}" />
+	@endif
+
 	<form action=" {{ route('admin.settings') }}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<div class="row">
@@ -33,7 +39,7 @@
 		</div>
 		<div class="row">
 			<div class="col text-center">
-				<x-button type="success" text="Save settings" />
+				<x-button type="success" for="submit" text="Save settings" />
 			</div>
 		</div>
 	</form>

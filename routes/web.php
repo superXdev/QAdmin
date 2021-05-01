@@ -19,7 +19,7 @@ Route::group([
 	
 	// Settings menu
 	Route::view('/settings', 'admin.settings')->name('settings');
-	Route::post('/settings', [DashboardController::class, 'setting_store'])->name('settings');
+	Route::post('/settings', [DashboardController::class, 'settings_store'])->name('settings');
 	
 	// Profile menu
 	Route::view('/profile', 'admin.profile')->name('profile');
