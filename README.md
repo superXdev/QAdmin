@@ -36,7 +36,7 @@ a free, open-source dashboard panel starter kit for Laravel. Just intall and eve
 
 You can fork or clone this project
 
-```bash 
+``` 
 git clone git@github.com:superXdev/QAdmin.git
 cd QAdmin
 composer install
@@ -49,11 +49,11 @@ That's it!
 
 To run tests, run the following command
 
-```bash
+```
 php artisan test
 ```
 
-```bash
+```
 Tests:  29 passed
 Time:   7.58s
 ```
