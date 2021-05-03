@@ -35,7 +35,9 @@
 							@else
 							@foreach($log->properties as $key => $value)
 								<ul>
+									@if(!empty($value))
 									<li><b>{{ $key }}</b>: {{ $value }}</li>
+									@endif
 								</ul>
 								@endforeach
 							@endif
