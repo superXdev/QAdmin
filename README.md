@@ -45,6 +45,10 @@ php artisan admin:install
 ```
 That's it!
 
+## Admin credentials
+- **Email:** admin@gmail.com
+- **Password:** admin123
+
 ## Running Tests
 
 To run tests, run the following command
