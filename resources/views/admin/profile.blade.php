@@ -4,7 +4,7 @@
 	</x-slot>
 
     <x-slot name="head">
-        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+        <link href="{{ asset('dist/vendor/filepond/filepond.css') }}" rel="stylesheet" />
     </x-slot>
 
 	<div class="container">
@@ -41,7 +41,7 @@
     </div>
 
     <x-slot name="script">
-        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script src="{{ asset('dist/vendor/filepond/filepond.js') }}"></script>
 
         <script>
         const inputElement = document.querySelector('input[type="file"]');
