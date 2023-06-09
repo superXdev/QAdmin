@@ -63,7 +63,7 @@ Time:   7.58s
 ```
 
 ## Sponsor
-https://suksesmm.com - SMM Panel Indonesia
+https://suksesmm.net - SMM Panel Indonesia
 
 ## License
 
